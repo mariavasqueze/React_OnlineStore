@@ -1,75 +1,94 @@
-import { initializeApp } from 'firebase/app';
-import {getAuth, signInWithRedirect, signInWithPopup, signInWithEmailAndPassword, GoogleAuthProvider, createUserWithEmailAndPassword} from 'firebase/auth';
+import { initializeApp } from "firebase/app";
+import {
+	getAuth,
+	signInWithRedirect,
+	signInWithPopup,
+	signInWithEmailAndPassword,
+	GoogleAuthProvider,
+	createUserWithEmailAndPassword,
+	signOut,
+	onAuthStateChanged
+} from "firebase/auth";
 
-import {getFirestore, doc, getDoc, setDoc} from 'firebase/firestore';
+import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyB8gJA8mu-HPQl-Et05DDqlLBSzkgy0wms",
-    authDomain: "ironside-clothing-db.firebaseapp.com",
-    projectId: "ironside-clothing-db",
-    storageBucket: "ironside-clothing-db.appspot.com",
-    messagingSenderId: "770447782577",
-    appId: "1:770447782577:web:caba87659ce1ac02822890"
-  };
-  
-  // Initialize Firebase
-  const firebaseApp = initializeApp(firebaseConfig);
+	apiKey: "AIzaSyB8gJA8mu-HPQl-Et05DDqlLBSzkgy0wms",
+	authDomain: "ironside-clothing-db.firebaseapp.com",
+	projectId: "ironside-clothing-db",
+	storageBucket: "ironside-clothing-db.appspot.com",
+	messagingSenderId: "770447782577",
+	appId: "1:770447782577:web:caba87659ce1ac02822890",
+};
 
-  // set authentication
-  const googleProvider = new GoogleAuthProvider();
+// Initialize Firebase
+const firebaseApp = initializeApp(firebaseConfig);
 
-  googleProvider.setCustomParameters({
-    prompt: "select_account"
-  });
+// set authentication
+const googleProvider = new GoogleAuthProvider();
 
-  export const auth = getAuth();
-  export const signInWithGooglePopUp = () => signInWithPopup(auth, googleProvider);
-  export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googleProvider);
+googleProvider.setCustomParameters({
+	prompt: "select_account",
+});
 
-  export const db = getFirestore();
+export const auth = getAuth();
+export const signInWithGooglePopUp = () =>
+	signInWithPopup(auth, googleProvider);
+export const signInWithGoogleRedirect = () =>
+	signInWithRedirect(auth, googleProvider);
 
-  export const createUserDocumentFromAuth = async (userAuth, additionalInformation = {}) => {
-    if(!userAuth) return;
+export const db = getFirestore();
 
-    const userDocRef = doc(db, 'users', userAuth.uid);
+export const createUserDocumentFromAuth = async (
+	userAuth,
+	additionalInformation = {}
+) => {
+	if (!userAuth) return;
 
-    const userSnapshot = await getDoc(userDocRef);
+	const userDocRef = doc(db, "users", userAuth.uid);
 
-    //if not exists
-        //create user data in collection
-    if(!userSnapshot.exists()){
-        const { displayName, email } = userAuth;
-        const createdAt = new Date();
+	const userSnapshot = await getDoc(userDocRef);
 
-        try{
-            await setDoc(userDocRef, {
-                displayName,
-                email,
-                createdAt,
-                ...additionalInformation,
-            });
-        } catch(error){
-            console.log('Error creating the user', error.message);
-        }
-    }
-    //if user data exists
-        //return userDocRef
-    return userDocRef;
-  };
+	//if not exists
+	//create user data in collection
+	if (!userSnapshot.exists()) {
+		const { displayName, email } = userAuth;
+		const createdAt = new Date();
 
-  //validate (create) user with email and password 
-  export const createAuthUserWithEmailAndPassword = async (email, password) => {
-    //end function if no email or password received
-    if(!email || !password) return;
+		try {
+			await setDoc(userDocRef, {
+				displayName,
+				email,
+				createdAt,
+				...additionalInformation,
+			});
+		} catch (error) {
+			console.log("Error creating the user", error.message);
+		}
+	}
+	//if user data exists
+	//return userDocRef
+	return userDocRef;
+};
 
-    return await createUserWithEmailAndPassword(auth, email, password)
-  }
+//validate (create) user with email and password
+export const createAuthUserWithEmailAndPassword = async (email, password) => {
+	//end function if no email or password received
+	if (!email || !password) return;
 
-  //sign in with email and password
-  export const signInAuthUserWithEmailAndPassword = async (email, password) => {
-    //end function if no email or password received
-    if(!email || !password) return;
+	return await createUserWithEmailAndPassword(auth, email, password);
+};
 
-    return await signInWithEmailAndPassword(auth, email, password)
-  }
+//sign in with email and password
+export const signInAuthUserWithEmailAndPassword = async (email, password) => {
+	//end function if no email or password received
+	if (!email || !password) return;
+
+	return await signInWithEmailAndPassword(auth, email, password);
+};
+
+//sign out user method
+export const signOutUser = async () => await signOut(auth);
+
+export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback);

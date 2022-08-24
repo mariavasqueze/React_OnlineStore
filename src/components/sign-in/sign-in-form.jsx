@@ -1,13 +1,15 @@
 import { useState } from "react";
-import "./sign-in-form.styles.scss";
 
 import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
+
 import {
 	signInWithGooglePopUp,
-	createUserDocumentFromAuth,
 	signInAuthUserWithEmailAndPassword,
+	createUserDocumentFromAuth,
 } from "../../utils/firebase/firebase.utils";
+
+import "./sign-in-form.styles.scss";
 
 const defaultFormFields = {
 	email: "",
@@ -28,33 +30,30 @@ const SignInForm = () => {
 	};
 
 	const signInWithGoogle = async () => {
-		const { user } = await signInWithGooglePopUp();
-		await createUserDocumentFromAuth(user);
+		await signInWithGooglePopUp();
 	};
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 
 		try {
-			const response = await signInAuthUserWithEmailAndPassword(
+			const { user } = await signInAuthUserWithEmailAndPassword(
 				email,
 				password
 			);
-			console.log(response);
-      resetFormFields();
-
+			resetFormFields();
 		} catch (error) {
-      switch(error.code){
-        case "auth/wrong-password":
-          alert("incorrect password for email");
-          break;
+			switch (error.code) {
+				case "auth/wrong-password":
+					alert("incorrect password for email");
+					break;
 
-        case "auth/user-not-found":
-          alert("email doesn't exist");
-          break;
-        default:
-          console.log("Error occured when logging in: ", error.message);
-      }
+				case "auth/user-not-found":
+					alert("email doesn't exist");
+					break;
+				default:
+					console.log("Error occured when logging in: ", error.message);
+			}
 		}
 	};
 
