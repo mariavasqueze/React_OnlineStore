@@ -68,18 +68,14 @@ export const addCollectionAndDocuments = async (
 
 //Get information from firebase db
 export const getCategoriesAndDocuments = async () => {
-	const collectionRef = collection(db, "categories");
+	const collectionRef = collection(db, 'categories');
 	const q = query(collectionRef);
-
+  
 	const querySnapshot = await getDocs(q);
-	const categoryMap = querySnapshot.docs.reduce((accumulator, docSnapshot) => {
-		const { title, items } = docSnapshot.data();
-		accumulator[title.toLowerCase()] = items;
-		return accumulator;
-	}, {});
+	return querySnapshot.docs.map((docSnapshot) => docSnapshot.data());
+  };
 
-	return categoryMap;
-};
+  
 
 export const createUserDocumentFromAuth = async (
 	userAuth,
@@ -133,4 +129,4 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
 export const signOutUser = async () => await signOut(auth);
 
 export const onAuthStateChangedListener = (callback) =>
-	onAuthStateChanged(auth, callback);
+  onAuthStateChanged(auth, callback);
