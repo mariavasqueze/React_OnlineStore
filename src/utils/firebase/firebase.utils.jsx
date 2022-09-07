@@ -68,14 +68,12 @@ export const addCollectionAndDocuments = async (
 
 //Get information from firebase db
 export const getCategoriesAndDocuments = async () => {
-	const collectionRef = collection(db, 'categories');
+	const collectionRef = collection(db, "categories");
 	const q = query(collectionRef);
-  
+
 	const querySnapshot = await getDocs(q);
 	return querySnapshot.docs.map((docSnapshot) => docSnapshot.data());
-  };
-
-  
+};
 
 export const createUserDocumentFromAuth = async (
 	userAuth,
@@ -83,6 +81,7 @@ export const createUserDocumentFromAuth = async (
 ) => {
 	if (!userAuth) return;
 
+	//userDocRef = pointer to where data lives
 	const userDocRef = doc(db, "users", userAuth.uid);
 
 	const userSnapshot = await getDoc(userDocRef);
@@ -105,8 +104,8 @@ export const createUserDocumentFromAuth = async (
 		}
 	}
 	//if user data exists
-	//return userDocRef
-	return userDocRef;
+	//return userSnapshot because it contains the data of user
+	return userSnapshot;
 };
 
 //validate (create) user with email and password
@@ -129,4 +128,18 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
 export const signOutUser = async () => await signOut(auth);
 
 export const onAuthStateChangedListener = (callback) =>
-  onAuthStateChanged(auth, callback);
+	onAuthStateChanged(auth, callback);
+
+// this functions works instead of running the action inside the useEffect on App.js file
+export const getCurrentUser = () => {
+	return new Promise((resolve, reject) => {
+		const unsubscribe = onAuthStateChanged(
+			auth,
+			(userAuth) => {
+				unsubscribe();
+				resolve(userAuth);
+			},
+			reject
+		);
+	});
+};
