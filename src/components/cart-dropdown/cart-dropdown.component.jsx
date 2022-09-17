@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { useCallback, useMemo } from "react";
 
 import { useNavigate } from "react-router-dom";
 
@@ -17,9 +18,10 @@ const CartDropdown = () => {
 	const cartItems = useSelector(selectCartItems);
 	const navigate = useNavigate();
 
-	const goToCheckoutHandler = () => {
+	// function doesn't reinitialize as long as value doesn't change (memoizing the function)
+	const goToCheckoutHandler = useCallback(() => {
 		navigate("/checkout");
-	};
+	}, [navigate]);
 
 	return (
 		<CartDropdownContainer>

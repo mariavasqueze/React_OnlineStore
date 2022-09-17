@@ -9,7 +9,7 @@ import {
 	addItemToCart,
 } from "../../store/cart/cart.action";
 
-import "./checkout-item.styles.scss";
+import {CheckoutItemContainer, ImageContainer, TextContainer, QuantityContainer, RemoveButtonContainer} from "./checkout-item.styles";
 
 const CheckoutItem = ({ cartItem }) => {
 	const { name, quantity, price, imageUrl } = cartItem;
@@ -24,12 +24,12 @@ const CheckoutItem = ({ cartItem }) => {
 		dispatch(removeItemFromCart(cartItems, cartItem));
 
 	return (
-		<div className="checkout-item-container">
-			<div className="image-container">
+		<CheckoutItemContainer>
+			<ImageContainer>
 				<img src={imageUrl} alt={`${name}`} />
-			</div>
-			<span className="name"> {name} </span>
-			<span className="quantity">
+			</ImageContainer>
+			<TextContainer> {name} </TextContainer>
+			<QuantityContainer>
 				<div className="arrow" onClick={removeItemHandler}>
 					&#10094;
 				</div>
@@ -37,12 +37,12 @@ const CheckoutItem = ({ cartItem }) => {
 				<div className="arrow" onClick={addItemHandler}>
 					&#10095;
 				</div>
-			</span>
-			<span className="price"> {price}</span>
-			<div className="remove-button" onClick={clearItemHandler}>
+			</QuantityContainer>
+			<TextContainer>{price}</TextContainer>
+			<RemoveButtonContainer onClick={clearItemHandler}>
 				&#10005;
-			</div>
-		</div>
+			</RemoveButtonContainer>
+		</CheckoutItemContainer>
 	);
 };
 
