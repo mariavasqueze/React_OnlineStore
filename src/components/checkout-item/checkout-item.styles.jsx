@@ -22,7 +22,18 @@ export const ImageContainer = styled.div`
 export const TextContainer = styled.span`
 	width: 23%;
 	@media screen and (max-width: 800px) {
-		width: 22%;
+		width: 16%;
+		font-size: 14px;
+		margin-right: 12px;
+	}
+`;
+
+export const PriceContainer = styled.span`
+	width: 23%;
+	@media screen and (max-width: 800px) {
+		width: 16%;
+		font-size: 14px;
+		margin-left: 15px;
 	}
 `;
 
@@ -34,9 +45,19 @@ export const QuantityContainer = styled(TextContainer)`
 	div {
 		cursor: pointer;
 	}
+
+	@media screen and (max-width: 800px) {
+		width: 20%;
+		padding-left: 15px;
+	}
 `;
 
 export const RemoveButtonContainer = styled.div`
 	padding-left: 12px;
 	cursor: pointer;
+
+	@media screen and (max-width: 800px) {
+		padding: 0px;
+		margin: 5px;
+	}
 `;

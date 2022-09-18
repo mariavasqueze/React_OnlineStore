@@ -9,7 +9,7 @@ import {
 	addItemToCart,
 } from "../../store/cart/cart.action";
 
-import {CheckoutItemContainer, ImageContainer, TextContainer, QuantityContainer, RemoveButtonContainer} from "./checkout-item.styles";
+import {CheckoutItemContainer, ImageContainer, TextContainer, QuantityContainer, RemoveButtonContainer, PriceContainer} from "./checkout-item.styles";
 
 const CheckoutItem = ({ cartItem }) => {
 	const { name, quantity, price, imageUrl } = cartItem;
@@ -38,7 +38,7 @@ const CheckoutItem = ({ cartItem }) => {
 					&#10095;
 				</div>
 			</QuantityContainer>
-			<TextContainer>{price}</TextContainer>
+			<PriceContainer>{price}</PriceContainer>
 			<RemoveButtonContainer onClick={clearItemHandler}>
 				&#10005;
 			</RemoveButtonContainer>

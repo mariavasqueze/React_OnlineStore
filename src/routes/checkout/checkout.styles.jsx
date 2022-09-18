@@ -15,6 +15,7 @@ export const CheckoutContainer = styled.div`
 	@media screen and (max-width: 800px) {
 		width: 90%;
 
+		margin: 30px auto 0;
 	}
 `;
 
@@ -35,7 +36,9 @@ export const HeaderBlock = styled.div`
 	}
 
 	@media screen and (max-width: 800px) {
-		width: 22%;
+		font-size: 12px;
+		gap: 12px;
+		margin-right: 10px;
 		&:last-child {
 			width: 12%;
 		}
@@ -46,4 +49,9 @@ export const TotalContainer = styled.span`
 	margin-top: 30px;
 	margin-left: auto;
 	font-size: 36px;
+
+	@media screen and (max-width: 800px) {
+		margin-top: 10px;
+		font-size: 16px;
+	}
 `;

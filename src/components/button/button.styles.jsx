@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Spinner from "../spinner/spinner.component";
 
 import { SpinnerContainer } from "../spinner/spinner.styles";
 
@@ -26,6 +25,13 @@ export const BaseButton = styled.button`
 		background-color: white;
 		color: black;
 		border: 1px solid black;
+	}
+
+	@media screen and (max-width: 800px) {
+		min-width: 125px;
+		height: 40px;
+		padding: 0 10px 0 10px;
+		font-size: 12px;
 	}
 `;
 export const GoogleSignInButton = styled(BaseButton)`

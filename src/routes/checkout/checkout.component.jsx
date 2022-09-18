@@ -12,6 +12,7 @@ import {
 	CheckoutContainer,
 	CheckoutHeader,
 	HeaderBlock,
+	TotalContainer
 } from "./checkout.styles";
 
 const Checkout = () => {
@@ -40,7 +41,7 @@ const Checkout = () => {
 			{cartItems.map((cartItem) => {
 				return <CheckoutItem key={cartItem.id} cartItem={cartItem} />;
 			})}
-			<span className="total">Total: ${cartTotal}</span>
+			<TotalContainer>Total: ${cartTotal}</TotalContainer>
 			<PaymentForm />
 		</CheckoutContainer>
 	);
