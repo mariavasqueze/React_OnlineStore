@@ -5,7 +5,8 @@ const categories = [
 	{
 		id: 1,
 		title: "hats",
-		imageUrl: "https://i.ibb.co/cvpntL1/hats.png",
+		imageUrl: "https://i.ibb.co/LZ81mJc/hats.jpg",
+		// imageUrl: "https://i.ibb.co/dtGkqLB/B00-3918.jpg",
 		route: "/shop/hats",
 	},
 	{
@@ -23,13 +24,13 @@ const categories = [
 	{
 		id: 4,
 		title: "womens",
-		imageUrl: "https://i.ibb.co/GCCdy8t/womens.png",
+		imageUrl: "https://i.ibb.co/n7xQK6x/women.jpg",
 		route: "/shop/womens",
 	},
 	{
 		id: 5,
 		title: "mens",
-		imageUrl: "https://i.ibb.co/R70vBrQ/men.png",
+		imageUrl: "https://i.ibb.co/VV5tHng/man.jpg",
 		route: "/shop/mens",
 	},
 ];
